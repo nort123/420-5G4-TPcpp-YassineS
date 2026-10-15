@@ -13,6 +13,7 @@ class Library {
 private:
     vector<unique_ptr<Book>> books;
     vector<unique_ptr<User>> users;
+    int vectorSizeUsers;
 
 public:
     // Constructor and destructor
@@ -32,6 +33,9 @@ public:
     void addUser(const User& user);
     User* findUserById(const string& userId);
     vector<User*> getAllUsers();
+    void updateUserCount(const int& size);
+    int getUserCount();
+    string generateNextUserId();
     
     // Library operations
     bool checkOutBook(const string& isbn, const string& userId);
@@ -46,6 +50,8 @@ public:
     int getTotalBooks() const;
     int getAvailableBookCount() const;
     int getCheckedOutBookCount() const;
+
+
 };
 
 #endif

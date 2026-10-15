@@ -96,7 +96,9 @@ bool FileManager::loadUsersFromFile(Library& library) {
             library.addUser(user);
             count++;
         }
+        
     }
+    library.updateUserCount(count);
     
     file.close();
     cout << "Chargé " << count << " utilisateur(s) depuis le fichier.\n";

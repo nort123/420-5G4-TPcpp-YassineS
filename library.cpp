@@ -6,7 +6,9 @@
 using namespace std;
 
 // Constructor
-Library::Library() {}
+Library::Library() {
+    vectorSizeUsers = 0;
+}
 
 // Add book to library
 void Library::addBook(const Book& book) {
@@ -94,6 +96,14 @@ vector<Book*> Library::getAllBooks() {
 // Add user to library
 void Library::addUser(const User& user) {
     users.push_back(make_unique<User>(user));
+}
+
+void Library::updateUserCount(const int& size){
+    this-> vectorSizeUsers = size;
+}
+
+ int Library::getUserCount(){
+    return vectorSizeUsers;
 }
 
 // Find user by ID
@@ -202,3 +212,4 @@ int Library::getAvailableBookCount() const {
         });
 }
 int Library::getCheckedOutBookCount() const { return getTotalBooks() - getAvailableBookCount(); }
+

@@ -1,4 +1,7 @@
+#include <sstream>
+
 #include "book.h"
+
 
 using namespace std;
 
@@ -72,6 +75,8 @@ string Book::toFileFormat() const{
 }
 
 void Book::fromFileFormat(const string& line){
+    stringstream ss(line);
     
+
 }
 

@@ -1,5 +1,7 @@
 #include <iostream>
 #include <algorithm>
+#include <iomanip>
+#include <sstream>
 
 #include "library.h"
 
@@ -123,6 +125,38 @@ vector<User*> Library::getAllUsers() {
         allUsers.push_back(user.get());
     }
     return allUsers;
+}
+
+string Library::generateNextUserId(){
+    int maxId = 0;
+
+    //trouver le plus gros user
+    for (const auto& user : users) {
+        string currentIdStr = user->getUserId(); 
+        
+        // oncheck si le id commence bien apr USR et a une suite
+        if (currentIdStr.length() > 3 && currentIdStr.substr(0, 3) == "USR") {
+            try {
+                // extraire la partie apres le USR
+                int currentNum = stoi(currentIdStr.substr(3));
+                if (currentNum > maxId) {
+                    maxId = currentNum; //on prends le plus gros id
+                }
+            } catch (const exception& e) {
+                // ici c'est juste pour ignorer si il y a un id mal formate
+            }
+        }
+    }
+
+    //on calcule le prochain id
+    int nextId = maxId + 1;
+
+    // je formate la chaine a mettre -> USR001 par ex
+    ostringstream oss;
+    oss << "USR" << setfill('0') << setw(3) << nextId; // setw fait en sorte que j'on prenne au moins
+    //3 caracteres de large et qu'on le fill up avec des 0 si pas utilise
+    
+    return oss.str();
 }
 
 // Check out book

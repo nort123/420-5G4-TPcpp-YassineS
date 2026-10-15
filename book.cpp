@@ -24,5 +24,54 @@ void Book::setBorrowerId(const string& id){this-> borrowerId = id;}
 void Book::setAvailability(const bool available){this-> isAvailable = available;}
 
 
+//methodes
 
+void Book::checkOut(const string& borrowerId){
+    setAvailability(false); 
+    setBorrowerId(borrowerId);
+}
+
+void Book::returnBook(){
+    setAvailability(true);
+    setBorrowerId("");
+}
+
+string Book::toString() const{
+    string result ="";
+
+
+    if (isAvailable)
+    {
+        result = "Titre: " + title + "\nAuteur: " + author + 
+                        "\nISBN : " + isbn + "\nStatut: Disponible";
+    }else{
+        result = "Titre: " + title + "\nAuteur: " + author + 
+                        "\nISBN : " + isbn + "\nStatut: Emprunte par : " + borrowerId ;
+    }
+    
+
+
+
+    return result;
+}
+
+string Book::toFileFormat() const{
+    string result = "";
+
+    if (isAvailable)
+    {
+        result = title + "|" + author + "|" + isbn + "|1|";
+    }else{
+        result = title + "|" + author + "|" + isbn + "|0|" + borrowerId;
+    }
+    
+
+
+
+    return result;
+}
+
+void Book::fromFileFormat(const string& line){
+    
+}
 

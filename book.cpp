@@ -1,6 +1,7 @@
 #include <sstream>
 
 #include "book.h"
+#include "library.h"
 
 
 using namespace std;
@@ -40,23 +41,26 @@ void Book::returnBook(){
 }
 
 string Book::toString() const{
-    string result ="";
-
-
-    if (isAvailable)
-    {
-        result = "Titre: " + title + "\nAuteur: " + author + 
+    string result ="Titre: " + title + "\nAuteur: " + author + 
                         "\nISBN : " + isbn + "\nStatut: Disponible";
-    }else{
-        result = "Titre: " + title + "\nAuteur: " + author + 
-                        "\nISBN : " + isbn + "\nStatut: Emprunte par : " + borrowerId ;
-    }
-    
+    return result;
+}
+
+string Book::toString(Library& library) const {
+
+
+
+
+    string result = "Titre: " + title + "\nAuteur: " + author + 
+                        "\nISBN : " + isbn + "\nStatut: Emprunte par : " + library.findUserById(borrowerId)->getName() ;
 
 
 
     return result;
 }
+
+
+
 
 string Book::toFileFormat() const{
     string result = "";

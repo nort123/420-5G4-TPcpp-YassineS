@@ -1,9 +1,14 @@
 #ifndef BOOK_H
 #define BOOK_H
 
+
+
 #include <string>
 
 using namespace std;
+
+class Library;
+
 
 class Book {
 private:
@@ -36,6 +41,7 @@ public:
     void checkOut(const string& borrowerId);
     void returnBook();
     string toString() const;
+    string toString(Library& library) const;
     string toFileFormat() const;
     void fromFileFormat(const string& line);
 };

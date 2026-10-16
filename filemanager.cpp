@@ -126,7 +126,7 @@ void FileManager::createBackup() {
 }
 
 bool FileManager::exportToCSV(Library& library, const string& filename){
-    // je verifie si le ficheir existe deja et si il est vide
+    // je verifie si le ficheir existe deja et si il est plein
     bool writeHeader = true;
     if (filesystem::exists(filename) && filesystem::file_size(filename) > 0) {
         writeHeader = false; // le fichier existe deja et est pas vide

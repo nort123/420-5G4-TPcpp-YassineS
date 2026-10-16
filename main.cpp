@@ -239,13 +239,26 @@ int main(int argc, char* argv[]) {
             }
             
             case 12: { // Save Data
-                if (fileManager.saveLibraryData(library)) {
+                if (dataDir.empty())
+                {
+                    cout << "Veuillez lancer le programme en specifiant de repertoire des donnees de l'application \n" <<
+                     " ex :./bibliotheque -d /repertoireData";
+
+                }else{
+                     if (fileManager.saveLibraryData(library)) {
                     cout << "Données de la bibliothèque sauvegardées avec succès !\n";
                 } else {
                     cout << "Erreur lors de la sauvegarde des données de la bibliothèque.\n";
                 }
+
+
+                }
+
                 pauseForInput();
                 break;
+                
+                
+               
             }
             
             case 13: { // Create Backup

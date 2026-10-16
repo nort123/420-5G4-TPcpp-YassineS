@@ -25,6 +25,8 @@ public:
     bool saveUsersToFile(Library& library);
     bool loadBooksFromFile(Library& library);
     bool loadUsersFromFile(Library& library);
+    bool exportToCSV(Library& library, const string& filename);
+
     
     // Utility methods
     bool fileExists(const string& filename);

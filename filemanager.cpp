@@ -123,3 +123,36 @@ void FileManager::createBackup() {
     
     cout << "Fichiers de sauvegarde créés.\n";
 }
+
+bool FileManager::exportToCSV(Library& library, const string& filename){
+    // je verifie si le ficheir existe deja et si il est vide
+    bool writeHeader = true;
+    if (filesystem::exists(filename) && filesystem::file_size(filename) > 0) {
+        writeHeader = false; // le fichier existe deja et est pas vide
+    }
+
+    // ca ouvre le fichier en mode append
+    ofstream file(filename, ios::app);
+    if (!file.is_open()) {
+        cout << "erreur : Impossible d'ouvrir " << filename << " en ecriture.\n";
+        return false;
+    }
+
+    // ecrit l'entete SEULEMENT si c'est un nouveau fichier
+    if (writeHeader) {
+        file << "Titre,Auteur,ISBN,Disponible,Emprunteur_ID\n";
+    }
+
+    // recupere tout les livres et les met en ecriture un par un
+    auto books = library.getAllBooks();
+    for (Book* book : books) {
+        file << "\"" << book->getTitle() << "\","
+             << "\"" << book->getAuthor() << "\","
+             << "\"" << book->getISBN() << "\","
+             << (book->getAvailability() ? "Oui" : "Non") << ","
+             << "\"" << book->getBorrowerId() << "\"\n";
+    }
+
+    file.close();
+    return true;
+}

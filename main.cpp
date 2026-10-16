@@ -33,6 +33,7 @@ void displayMenu() {
     cout << "11. Statistiques de la Bibliothèque\n";
     cout << "12. Sauvegarder les Données\n";
     cout << "13. Créer une Sauvegarde\n";
+    cout << "14. Sauvegarder les donnees en CSV\n";
     cout << "0.  Quitter\n";
     cout << "======================================================\n";
     cout << "Entrez votre choix : ";
@@ -250,6 +251,25 @@ int main(int argc, char* argv[]) {
                 fileManager.createBackup();
                 pauseForInput();
                 break;
+            }
+
+            case 14:{ // sauvegarde CSV
+                string nomFichier = "sauvegarde.csv";
+                if (fileManager.exportToCSV(library,nomFichier))
+                {
+                    cout << "Sauvegarde CSV reussie dans le fichier : " <<nomFichier << "\n"; 
+                }else{
+                    cout << "Erreur lors de la sauvegarde CSV \n";
+                }
+                pauseForInput();
+
+                break;
+                
+            }
+
+            case 15:{
+
+
             }
             
             case 0: // Exit

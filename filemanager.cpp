@@ -2,6 +2,7 @@
 #include <iostream>
 #include <filesystem>
 #include "filemanager.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -155,4 +156,77 @@ bool FileManager::exportToCSV(Library& library, const string& filename){
 
     file.close();
     return true;
+
+
+
 }
+
+bool FileManager::importFromCSV(Library& library, const string& filename){
+    ifstream file(filename);
+    if (!file.is_open())
+    {
+        cout << "Erreur : impossible d'ouvrir " << filename << "\n";
+        return false;
+    }
+    string line;
+
+    getline(file,line);
+
+    int count = 0;
+
+    while (getline(file,line))
+    {
+        if (line.empty())
+        {
+            continue;
+        }
+
+        stringstream ss(line);
+        string titre, auteur, isbn, dispoStr, id;
+
+        getline(ss,titre,',');
+        getline(ss,auteur,',');
+        getline(ss,isbn,',');
+        getline(ss,dispoStr,',');
+        getline(ss,id,',');
+
+
+        titre.erase(remove(titre.begin(),titre.end(),'\"'),titre.end());
+        auteur.erase(remove(auteur.begin(),auteur.end(),'\"'),auteur.end());
+        isbn.erase(remove(isbn.begin(),isbn.end(),'\"'),isbn.end());
+        id.erase(remove(id.begin(),id.end(),'\"'),id.end());
+
+
+        if (!library.findBookByISBN(isbn))
+        {
+            Book newBook(titre,auteur,isbn);
+
+
+
+            if (dispoStr == "Non")
+            {
+                newBook.setAvailability(false);
+                newBook.setBorrowerId(id);
+            }
+
+            library.addBook(newBook);
+            count++;
+            
+        }
+        
+
+        
+
+        
+    }
+
+
+    file.close();
+
+    cout << count << " livres ont ete ajoute depuis le csv. \n";
+
+    return true;
+    
+    
+}
+

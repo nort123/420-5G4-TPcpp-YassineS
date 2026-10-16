@@ -34,6 +34,7 @@ void displayMenu() {
     cout << "12. Sauvegarder les Données\n";
     cout << "13. Créer une Sauvegarde\n";
     cout << "14. Sauvegarder les donnees en CSV\n";
+    cout << "15. Importation de donnes a partir d'un fichier CSV\n";
     cout << "0.  Quitter\n";
     cout << "======================================================\n";
     cout << "Entrez votre choix : ";
@@ -268,7 +269,19 @@ int main(int argc, char* argv[]) {
             }
 
             case 15:{
+                string nomFichier = "sauvegarde.csv";
+                cout << "importation des livres depuis " << nomFichier << "...\n";
 
+
+                if (!fileManager.importFromCSV(library,nomFichier))
+                {
+                    cout << "erreur lors de l'importation du fichier CSV. \n";
+                }
+
+                pauseForInput();
+
+                break;  
+                
 
             }
             
